@@ -3,7 +3,6 @@ FROM tozd/runit:ubuntu-xenial
 VOLUME /var/log/dockergen
 
 ENV DOCKER_HOST unix:///var/run/docker.sock
-ENV EXTERNAL_IP=
 
 RUN apt-get update -q -q && \
  apt-get install wget ca-certificates iptables --yes --force-yes && \

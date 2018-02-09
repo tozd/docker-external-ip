@@ -1,12 +1,14 @@
 {{ range $externalIP, $containersByExternalIP := groupBy $ "Env.EXTERNAL_IP" }}
-    # First we remove all existing entries.
-    for line in $(iptables --line-numbers --numeric -t nat --list POSTROUTING | awk '$7=="to:{{ $externalIP }}" {print $1}' | tac); do
-        iptables -t nat -D POSTROUTING $line
-    done
+    {{ if $externalIP }}
+        # First we remove all existing entries.
+        for line in $(iptables --line-numbers --numeric -t nat --list POSTROUTING | awk '$7=="to:{{ $externalIP }}" {print $1}' | tac); do
+            iptables -t nat -D POSTROUTING $line
+        done
 
-    {{ range $index, $container := $containersByExternalIP }}
-        {{ range $index, $network := $container.Networks }}
-            iptables -t nat -I POSTROUTING -s {{ $network.IP }} -j SNAT --to-source {{ $externalIP }}
+        {{ range $index, $container := $containersByExternalIP }}
+            {{ range $index, $network := $container.Networks }}
+                iptables -t nat -I POSTROUTING -s {{ $network.IP }} -j SNAT --to-source {{ $externalIP }}
+            {{ end }}
         {{ end }}
     {{ end }}
 {{ end }}
