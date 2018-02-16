@@ -3,7 +3,7 @@ for CHAIN in AFTER_EXTERNAL_IP EXTERNAL_IP; do
     if ! iptables --numeric -t nat --list $CHAIN >/dev/null 2>&1; then
         iptables -t nat -N $CHAIN
         iptables -t nat -A $CHAIN -j RETURN
-        iptables -t nat -I POSTROUTING -m addrtype --src-type LOCAL -j $CHAIN
+        iptables -t nat -I POSTROUTING -j $CHAIN
     fi
 done
 
