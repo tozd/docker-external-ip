@@ -10,3 +10,8 @@ containers external IP, iptables will be configured to route container's traffic
 A chain named `EXTERNAL_IP` is created in the `nat` table into which all the rules are added.
 And one more empty chain is created after this one for any additional custom rules you might want
 to add, named `AFTER_EXTERNAL_IP`.
+
+### Example
+ - Edit the docker-compose.yml file, with the correct external IPs needed. You can add or remove as many as you need. This external IPs must be assigned on the host interface(s)
+ - Run `docker-compose up -d`
+ - Run `for ID in a b c;do echo -n "$ID: "; docker-compose exec $ID curl ifconfig.me;echo;done` to show each container's external IP. Change "a b c" as needed.
