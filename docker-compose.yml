@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  nat_manager:
+    image: tozd/external-ip
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+
+  a:
+    image: byrnedo/alpine-curl
+    entrypoint: tail -f /dev/null
+    environment:
+      EXTERNAL_IP: 1.1.1.1
+
+  b:
+    image: byrnedo/alpine-curl
+    entrypoint: tail -f /dev/null
+    environment:
+      EXTERNAL_IP: 2.2.2.2
+
+  c:
+    image: byrnedo/alpine-curl
+    entrypoint: tail -f /dev/null
+    environment:
+      EXTERNAL_IP: 3.3.3.3
+
+networks:
+  default:
+    driver_opts:
+      com.docker.network.bridge.enable_ip_masquerade: "false"
