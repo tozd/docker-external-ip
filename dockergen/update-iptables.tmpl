@@ -1,9 +1,9 @@
 # First create our chains if there are not yet there. In reverse order.
 for CHAIN in AFTER_EXTERNAL_IP EXTERNAL_IP; do
-    if ! iptables --numeric -t nat --list $CHAIN >/dev/null 2>&1; then
-        iptables -t nat -N $CHAIN
-        iptables -t nat -A $CHAIN -j RETURN
-        iptables -t nat -I POSTROUTING -j $CHAIN
+    if ! iptables -w --numeric -t nat --list $CHAIN >/dev/null 2>&1; then
+        iptables -w -t nat -N $CHAIN
+        iptables -w -t nat -A $CHAIN -j RETURN
+        iptables -w -t nat -I POSTROUTING -j $CHAIN
     fi
 done
 
@@ -11,12 +11,12 @@ done
     {{ if $externalIP }}
         # First we remove all existing entries.
         for line in $(iptables --line-numbers --numeric -t nat --list EXTERNAL_IP | awk '$7=="to:{{ $externalIP }}" {print $1}' | tac); do
-            iptables -t nat -D EXTERNAL_IP $line
+            iptables -w -t nat -D EXTERNAL_IP $line
         done
 
         {{ range $index, $container := $containersByExternalIP }}
             {{ range $index, $network := $container.Networks }}
-                iptables -t nat -I EXTERNAL_IP -s {{ $network.IP }} -j SNAT --to-source {{ $externalIP }}
+                iptables -w -t nat -I EXTERNAL_IP -s {{ $network.IP }} -j SNAT --to-source {{ $externalIP }}
             {{ end }}
         {{ end }}
     {{ end }}
