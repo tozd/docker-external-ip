@@ -4,6 +4,7 @@ Run:
 $ docker run --detach \
  --net=host --cap-add=NET_ADMIN --cap-add=NET_RAW \
  --volume /var/run/docker.sock:/var/run/docker.sock \
+ --volume /run/xtables.lock:/run/xtables.lock \
  tozd/external-ip
 ```
 
@@ -15,6 +16,12 @@ A chain named `EXTERNAL_IP` is created in the `nat` table into which all the rul
 And one more empty chain is created after this one for any additional custom rules you might want
 to add, named `AFTER_EXTERNAL_IP`.
 
+Please make sure `/run/xtables.lock` exists on the host before starting the container.
+This file ensures iptables locking is consistent between the host and the container, 
+preventing race conditions that can cause containers to fail to start.
+If this file does not exist, Docker will incorrectly create it as a directory, which may cause issues both on the host and with the container.
+
+=======
 ## docker-compose example
 
 ```
@@ -25,6 +32,7 @@ services:
     image: tozd/external-ip:ubuntu-bionic
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - /run/xtables.lock:/run/xtables.lock
     network_mode: host
     cap_add:
       - NET_ADMIN
