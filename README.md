@@ -1,3 +1,14 @@
+# tozd/external-ip
+
+<https://gitlab.com/tozd/docker/external-ip>
+
+Available as:
+
+* [`tozd/external-ip`](https://hub.docker.com/r/tozd/external-ip)
+* [`registry.gitlab.com/tozd/docker/external-ip`](https://gitlab.com/tozd/docker/external-ip/container_registry)
+
+## Description
+
 Run:
 
 ```
