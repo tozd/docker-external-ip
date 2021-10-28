@@ -21,7 +21,6 @@ This file ensures iptables locking is consistent between the host and the contai
 preventing race conditions that can cause containers to fail to start.
 If this file does not exist, Docker will incorrectly create it as a directory, which may cause issues both on the host and with the container.
 
-=======
 ## docker-compose example
 
 ```
