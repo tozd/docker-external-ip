@@ -1,4 +1,4 @@
-FROM tozd/runit:ubuntu-bionic
+FROM registry.gitlab.com/tozd/docker/runit:ubuntu-bionic
 
 VOLUME /var/log/dockergen
 
