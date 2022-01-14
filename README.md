@@ -16,7 +16,7 @@ $ docker run --detach \
  --net=host --cap-add=NET_ADMIN --cap-add=NET_RAW \
  --volume /var/run/docker.sock:/var/run/docker.sock \
  --volume /run/xtables.lock:/run/xtables.lock \
- tozd/external-ip
+ tozd/external-ip:ubuntu-bionic
 ```
 
 After that, if any other Docker container has an environment variable `EXTERNAL_IP` set, with an IP address to use for
