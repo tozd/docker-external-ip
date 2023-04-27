@@ -4,8 +4,23 @@
 
 Available as:
 
-* [`tozd/external-ip`](https://hub.docker.com/r/tozd/external-ip)
-* [`registry.gitlab.com/tozd/docker/external-ip`](https://gitlab.com/tozd/docker/external-ip/container_registry)
+- [`tozd/external-ip`](https://hub.docker.com/r/tozd/external-ip)
+- [`registry.gitlab.com/tozd/docker/external-ip`](https://gitlab.com/tozd/docker/external-ip/container_registry)
+
+## Image inheritance
+
+[`tozd/base`](https://gitlab.com/tozd/docker/base) ← [`tozd/runit`](https://gitlab.com/tozd/docker/runit) ← `tozd/external-ip`
+
+## Tags
+
+- `ubuntu-bionic`
+- `ubuntu-focal`
+- `ubuntu-jammy`
+- `alpine-38`
+- `alpine-310`
+- `alpine-312`
+- `alpine-314`
+- `alpine-316`
 
 ## Description
 
@@ -28,7 +43,7 @@ And one more empty chain is created after this one for any additional custom rul
 to add, named `AFTER_EXTERNAL_IP`.
 
 Please make sure `/run/xtables.lock` exists on the host before starting the container.
-This file ensures iptables locking is consistent between the host and the container, 
+This file ensures iptables locking is consistent between the host and the container,
 preventing race conditions that can cause containers to fail to start.
 If this file does not exist, Docker will incorrectly create it as a directory, which may cause issues both on the host and with the container.
 
