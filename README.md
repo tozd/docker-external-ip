@@ -22,6 +22,14 @@ Available as:
 - `alpine-314`
 - `alpine-316`
 
+## Volumes
+
+- `/var/log/dockergen`: log files
+
+## Variables
+
+- `DOCKER_HOST`: Where to connect to access Docker daemon to monitor for new containers. Default is `/var/run/docker.sock` inside the container.
+
 ## Description
 
 Run:
