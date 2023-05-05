@@ -24,7 +24,7 @@ Available as:
 
 ## Volumes
 
-- `/var/log/dockergen`: log files
+- `/var/log/dockergen`: Log files.
 
 ## Variables
 
