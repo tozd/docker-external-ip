@@ -85,3 +85,8 @@ services:
 ```
 
 Set XX.XX.XX.XX and YY.YY.YY.YY to your external IP address.
+
+## GitHub mirror
+
+There is also a [read-only GitHub mirror available](https://github.com/tozd/docker-external-ip),
+if you need to fork the project there.
