@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/tozd/docker/runit:alpine-314
+FROM registry.gitlab.com/tozd/docker/dinit:alpine-314
 
 VOLUME /var/log/dockergen
 

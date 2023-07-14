@@ -9,7 +9,7 @@ Available as:
 
 ## Image inheritance
 
-[`tozd/base`](https://gitlab.com/tozd/docker/base) ← [`tozd/runit`](https://gitlab.com/tozd/docker/runit) ← `tozd/external-ip`
+[`tozd/base`](https://gitlab.com/tozd/docker/base) ← [`tozd/dinit`](https://gitlab.com/tozd/docker/dinit) ← `tozd/external-ip`
 
 ## Tags
 
