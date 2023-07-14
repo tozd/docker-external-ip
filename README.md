@@ -24,11 +24,12 @@ Available as:
 
 ## Volumes
 
-- `/var/log/dockergen`: Log files.
+- `/var/log/dockergen`: Log files when `LOG_TO_STDOUT` is not set to `1`.
 
 ## Variables
 
 - `DOCKER_HOST`: Where to connect to access Docker daemon to monitor for new containers. Default is `/var/run/docker.sock` inside the container.
+- `LOG_TO_STDOUT`: If set to `1` output logs to stdout (retrievable using `docker logs`) instead of log volumes.
 
 ## Description
 
@@ -54,6 +55,8 @@ Please make sure `/run/xtables.lock` exists on the host before starting the cont
 This file ensures iptables locking is consistent between the host and the container,
 preventing race conditions that can cause containers to fail to start.
 If this file does not exist, Docker will incorrectly create it as a directory, which may cause issues both on the host and with the container.
+
+When `LOG_TO_STDOUT` is set to `1`, Docker image logs output to stdout and stderr. All stdout output is JSON.
 
 ## docker-compose example
 
