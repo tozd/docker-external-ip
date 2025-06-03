@@ -16,11 +16,15 @@ Available as:
 - `ubuntu-bionic`
 - `ubuntu-focal`
 - `ubuntu-jammy`
+- `ubuntu-noble`
 - `alpine-38`
 - `alpine-310`
 - `alpine-312`
 - `alpine-314`
 - `alpine-316`
+- `alpine-318`
+- `alpine-320`
+- `alpine-322`
 
 ## Volumes
 
