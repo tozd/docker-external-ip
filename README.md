@@ -1,5 +1,8 @@
 # tozd/external-ip
 
+**DEPRECATED: Use `com.docker.network.host_ipv4` bridge option since Docker v25. See
+[this documentation for more details](https://github.com/docker-mailserver/docker-mailserver/pull/4330/files).**
+
 <https://gitlab.com/tozd/docker/external-ip>
 
 Available as:
