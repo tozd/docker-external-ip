@@ -1,4 +1,6 @@
 #!/bin/bash -e
 
+trap 'echo "ERROR: $BASH_SOURCE:$LINENO $BASH_COMMAND" >&2' ERR
+
 # docker-gen logs to stderr, so we redirect it to stdout.
 exec /dockergen/docker-gen -config /dockergen/dockergen.conf 2>&1
