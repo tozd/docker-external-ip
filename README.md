@@ -52,6 +52,8 @@ $ docker run --detach \
 
 After that, if any other Docker container has an environment variable `EXTERNAL_IP` set, with an IP address to use for
 containers external IP, iptables will be configured to route container's traffic from that external IP.
+Connections to other containers on the same Docker network keep the container's own address, except connections
+which Docker redirects from a published port back into a container.
 The external IP must be assigned on the host.
 
 A chain named `EXTERNAL_IP` is created in the `nat` table into which all the rules are added.
