@@ -57,8 +57,9 @@ which Docker redirects from a published port back into a container.
 The external IP must be assigned on the host.
 
 A chain named `EXTERNAL_IP` is created in the `nat` table into which all the rules are added.
-And one more empty chain is created after this one for any additional custom rules you might want
-to add, named `AFTER_EXTERNAL_IP`.
+The chain is managed fully by the container: rules for containers which are not running anymore are removed,
+as are any other rules added to it. And one more empty chain is created after this one for any additional custom
+rules you might want to add, named `AFTER_EXTERNAL_IP`.
 
 Please make sure `/run/xtables.lock` exists on the host before starting the container.
 This file ensures iptables locking is consistent between the host and the container,

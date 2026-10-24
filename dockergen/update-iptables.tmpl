@@ -7,18 +7,25 @@ for CHAIN in AFTER_EXTERNAL_IP EXTERNAL_IP; do
     fi
 done
 
+# We first insert current rules at the top of the chain, so that there is no time
+# without rules for a container, and only then remove all rules after them.
+POSITION=0
+insert() {
+    iptables -w -t nat -I EXTERNAL_IP $((POSITION + 1)) "$@" && POSITION=$((POSITION + 1))
+}
+
 {{ range $externalIP, $containersByExternalIP := groupBy $ "Env.EXTERNAL_IP" }}
     {{ if $externalIP }}
-        # First we remove all existing entries.
-        for line in $(iptables --line-numbers --numeric -t nat --list EXTERNAL_IP | awk '$NF=="to:{{ $externalIP }}" {print $1}' | tac); do
-            iptables -w -t nat -D EXTERNAL_IP $line
-        done
-
         {{ range $index, $container := $containersByExternalIP }}
             {{ range $index, $network := $container.Networks }}
-                iptables -w -t nat -I EXTERNAL_IP -s {{ $network.IP }} ! -d {{ $network.IP }}/{{ $network.IPPrefixLen }} -j SNAT --to-source {{ $externalIP }}
-                iptables -w -t nat -I EXTERNAL_IP -s {{ $network.IP }} -m conntrack --ctstate DNAT -j SNAT --to-source {{ $externalIP }}
+                insert -s {{ $network.IP }} ! -d {{ $network.IP }}/{{ $network.IPPrefixLen }} -j SNAT --to-source {{ $externalIP }}
+                insert -s {{ $network.IP }} -m conntrack --ctstate DNAT -j SNAT --to-source {{ $externalIP }}
             {{ end }}
         {{ end }}
     {{ end }}
 {{ end }}
+
+# Rules after the current ones are from before or for containers which are not running anymore.
+for line in $(iptables --line-numbers --numeric -t nat --list EXTERNAL_IP | awk -v position=$POSITION 'NR > 2 && $1 > position && $2 != "RETURN" {print $1}' | tac); do
+    iptables -w -t nat -D EXTERNAL_IP $line
+done
