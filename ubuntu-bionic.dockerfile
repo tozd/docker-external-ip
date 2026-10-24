@@ -13,5 +13,5 @@ RUN apt-get update -q -q && \
   apt-get purge --yes --force-yes --auto-remove wget ca-certificates && \
   apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ~/.cache ~/.npm
 
-COPY ./etc/service/dockergen /etc/service/dockergen
+COPY ./etc /etc
 COPY ./dockergen /dockergen

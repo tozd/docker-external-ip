@@ -10,5 +10,5 @@ RUN apk add --no-cache wget ca-certificates iptables && \
   tar xf /dockergen/docker-gen-linux-amd64-0.10.4.tar.gz -C /dockergen && \
   rm -f /dockergen/docker-gen-linux-amd64-0.10.4.tar.gz
 
-COPY ./etc/service/dockergen /etc/service/dockergen
+COPY ./etc /etc
 COPY ./dockergen /dockergen
